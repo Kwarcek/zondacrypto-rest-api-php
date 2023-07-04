@@ -1,0 +1,21 @@
+{
+    "name": "kwarcek/zondacrypto-rest-api-php",
+    "description": "Zondacrypto.com REST API PHP",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Kwarcek\\ZondacryptoRestApiPhp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Patryk Kania",
+            "email": "ecollatio@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "guzzlehttp/guzzle": "^7.7"
+    }
+}
