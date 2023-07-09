@@ -21,7 +21,7 @@ use Kwarcek\ZondacryptoRestApiPhp\Public\Requests\TradingRequest;
 $guzzleClient = new GuzzleClient();
 $zondaClient = new Client($guzzleClient);
 $tradingRequest = new TradingRequest($zondaClient);
-$tradingRequest->orderbook(;)
+$tradingRequest->orderbook();
 ```
 
 
