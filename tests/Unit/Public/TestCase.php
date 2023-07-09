@@ -1,6 +1,6 @@
 <?php
 
-namespace Kwarcek\ZondacryptoRestApiPhp\Test\Unit\Public\Requests;
+namespace Kwarcek\ZondacryptoRestApiPhp\Tests\Unit\Public;
 
 use GuzzleHttp\Client as GuzzleClient;
 use Kwarcek\ZondacryptoRestApiPhp\Public\Client;
