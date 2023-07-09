@@ -1,36 +1,43 @@
 {
-    "name": "kwarcek/zondacrypto-rest-api-php",
-    "description": "Zondacrypto.com REST API PHP",
-    "keywords": ["zonda","zondacrypto","rest","api","php"],
-    "homepage": "https://github.com/Kwarcek/zondacrypto-rest-api-php",
-    "license": "MIT",
-    "require": {
-        "php": "^8.1",
-        "guzzlehttp/guzzle": "^7.7"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^10.2"
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Kwarcek\\ZondacryptoRestApiPhp\\Test\\": "tests"
-        }
-    },
-    "autoload": {
-        "psr-4": {
-            "Kwarcek\\ZondacryptoRestApiPhp\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Patryk Kania",
-            "email": "ecollatio@gmail.com",
-            "homepage": "https://github.com/kwarcek",
-            "role": "Developer"
-        }
-    ],
-    "minimum-stability": "stable",
-    "scripts": {
-        "test": "vendor/bin/phpunit"
+  "name": "kwarcek/zondacrypto-rest-api-php",
+  "description": "Zondacrypto.com REST API PHP",
+  "keywords": [
+    "zonda",
+    "zondacrypto",
+    "rest",
+    "api",
+    "php"
+  ],
+  "homepage": "https://github.com/Kwarcek/zondacrypto-rest-api-php",
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Patryk Kania",
+      "email": "ecollatio@gmail.com",
+      "homepage": "https://github.com/kwarcek",
+      "role": "Developer"
     }
+  ],
+  "require": {
+    "php": "^8.1",
+    "guzzlehttp/guzzle": "^7.7"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Kwarcek\\ZondacryptoRestApiPhp\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Kwarcek\\ZondacryptoRestApiPhp\\Tests\\": "tests/"
+    }
+  },
+  "minimum-stability": "stable",
+  "scripts": {
+    "test": "vendor/bin/phpunit"
+  }
 }
