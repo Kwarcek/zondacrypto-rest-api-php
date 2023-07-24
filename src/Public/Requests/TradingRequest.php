@@ -3,12 +3,9 @@
 namespace Kwarcek\ZondacryptoRestApiPhp\Public\Requests;
 
 use Kwarcek\ZondacryptoRestApiPhp\Public\Client;
-use Psr\Http\Message\ResponseInterface;
+use Kwarcek\ZondacryptoRestApiPhp\Public\Enums\Resolution;
 use Kwarcek\ZondacryptoRestApiPhp\Public\Exceptions\ClientException;
 
-/**
- *
- */
 class TradingRequest extends Request
 {
     public function __construct(protected Client $client)
@@ -16,71 +13,62 @@ class TradingRequest extends Request
     }
 
     /**
-     * @return ResponseInterface
+     * @return array
      * @throws ClientException
      */
-    public function ticker(): ResponseInterface
+    public function getTicker(): array
     {
-        return $this->client->get("trading/ticker");
+        return $this->parseResponseToArray($this->client->get("rest/trading/ticker"));
     }
 
     /**
      * @param string $tradingPair
-     * @return ResponseInterface
+     * @return array
      * @throws ClientException
      */
-    public function pairTicker(string $tradingPair): ResponseInterface
+    public function getPairTicker(string $tradingPair): array
     {
-        return $this->client->get("trading/ticker/$tradingPair");
+        return $this->parseResponseToArray($this->client->get("rest/trading/ticker/$tradingPair"));
     }
 
     /**
-     * @return ResponseInterface
+     * @return array
      * @throws ClientException
      */
-    public function stats(): ResponseInterface
+    public function getStats(): array
     {
-        return $this->client->get("trading/stats");
-    }
-
-    /**
-     * @param string $tradingPair
-     * @return ResponseInterface
-     * @throws ClientException
-     */
-    public function pairStats(string $tradingPair): ResponseInterface
-    {
-        return $this->client->get("trading/stats/$tradingPair");
-    }
-
-    /**
-     * @return ResponseInterface
-     * @throws ClientException
-     */
-    public function orderbook(): ResponseInterface
-    {
-        return $this->client->get("trading/orderbook");
+        return $this->parseResponseToArray($this->client->get("rest/trading/stats"));
     }
 
     /**
      * @param string $tradingPair
-     * @return ResponseInterface
+     * @return array
      * @throws ClientException
      */
-    public function pairOrderbook(string $tradingPair): ResponseInterface
+    public function getPairStats(string $tradingPair): array
     {
-        return $this->client->get("trading/orderbook/$tradingPair");
+        return $this->parseResponseToArray($this->client->get("rest/trading/stats/$tradingPair"));
+    }
+
+    /**
+     * @param string $tradingPair
+     * @return array
+     * @throws ClientException
+     */
+    public function getOrderbook(string $tradingPair): array
+    {
+        return $this->parseResponseToArray($this->client->get("rest/trading/orderbook/$tradingPair"));
     }
 
     /**
      * @param string $tradingPair
      * @param int $limit
-     * @return ResponseInterface
+     * @return array
      * @throws ClientException
      */
-    public function orderbookLimited(string $tradingPair, int $limit = 10): ResponseInterface
+    public function getOrderbookLimited(string $tradingPair, int $limit = 10): array
     {
-        return $this->client->get("trading/orderbook-limited/$tradingPair/$limit");
+        return $this->parseResponseToArray($this->client->get("rest/trading/orderbook-limited/$tradingPair/$limit"));
     }
 
     /**
@@ -88,41 +76,38 @@ class TradingRequest extends Request
      * @param int $limit
      * @param string $sort
      * @param int|null $fromTime
-     * @return ResponseInterface
+     * @return array
      * @throws ClientException
      */
-    public function lastTransaction(
+    public function getLastTransaction(
         string $tradingPair,
-        int $limit = 10,
+        int    $limit = 10,
         string $sort = 'desc',
-        int $fromTime = null
-    ): ResponseInterface
+        int    $fromTime = null
+    ): array
     {
-        return $this->client->get("trading/transactions/$tradingPair", [
-            'limit' => $limit,
-            'sort' => $sort,
-            'fromTime' => $fromTime
-        ]);
+        return $this->parseResponseToArray(
+            $this->client->get("rest/trading/transactions/$tradingPair?limit=$limit&sort=$sort&fromTime=$fromTime")
+        );
     }
 
     /**
      * @param string $tradingPair
-     * @param int $resolution
-     * @param int $from
-     * @param int $to
-     * @return ResponseInterface
+     * @param Resolution $resolution
+     * @param int $fromTimestamp
+     * @param int $toTimestamp
+     * @return array
      * @throws ClientException
      */
-    public function candleHistory(
-        string $tradingPair,
-        int $resolution,
-        int $from,
-        int $to
-    ): ResponseInterface
+    public function getCandleHistory(
+        string     $tradingPair,
+        Resolution $resolution,
+        int        $fromTimestamp,
+        int        $toTimestamp
+    ): array
     {
-        return $this->client->get("trading/candle/history/$tradingPair/$resolution", [
-            'from' => $from,
-            'to' => $to
-        ]);
+        return $this->parseResponseToArray(
+            $this->client->get("rest/trading/candle/history/$tradingPair/$resolution->value?from=$fromTimestamp&to=$toTimestamp")
+        );
     }
 }

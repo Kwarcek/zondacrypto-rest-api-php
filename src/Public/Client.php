@@ -9,6 +9,8 @@ use Psr\Http\Message\ResponseInterface;
 
 class Client
 {
+    public const ZONDA_DEFAULT_API_URL = 'https://api.zonda.exchange/';
+
     public function __construct(private ClientInterface $client)
     {
     }
