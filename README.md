@@ -18,10 +18,12 @@ use GuzzleHttp\Client as GuzzleClient;
 use Kwarcek\ZondacryptoRestApiPhp\Public\Client;
 use Kwarcek\ZondacryptoRestApiPhp\Public\Requests\TradingRequest;
 
-$guzzleClient = new GuzzleClient();
+$guzzleClient = new GuzzleClient([
+    'base_uri' => Client::ZONDA_DEFAULT_API_URL,
+]);
 $zondaClient = new Client($guzzleClient);
 $tradingRequest = new TradingRequest($zondaClient);
-$tradingRequest->orderbook();
+$tradingRequest->getOrderbook();
 ```
 
 
