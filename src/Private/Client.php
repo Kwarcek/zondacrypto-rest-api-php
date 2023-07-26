@@ -15,6 +15,8 @@ class Client
 {
     private ClientInterface $client;
 
+    public const ZONDA_DEFAULT_PRIVATE_API_URL = 'https://api.zonda.exchange/';
+
     public function __construct(
         private AuthCredentials $authCredentials,
         array                   $clientConfig = []
@@ -23,7 +25,10 @@ class Client
         $this->client = new GuzzleClient(
             array_merge(
                 $clientConfig,
-                ['handler' => $this->getStack()]
+                [
+                    'handler' => $this->getStack(),
+                    'base_uri' => Client::ZONDA_DEFAULT_PRIVATE_API_URL,
+                ]
             )
         );
     }

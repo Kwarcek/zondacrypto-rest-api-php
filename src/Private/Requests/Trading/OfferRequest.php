@@ -3,6 +3,8 @@
 namespace Kwarcek\ZondacryptoRestApiPhp\Private\Requests\Trading;
 
 use Kwarcek\ZondacryptoRestApiPhp\Private\Client;
+use Kwarcek\ZondacryptoRestApiPhp\Private\Enums\OfferType;
+use Kwarcek\ZondacryptoRestApiPhp\Private\Enums\OrderMode;
 use Kwarcek\ZondacryptoRestApiPhp\Private\Requests\Request;
 use Psr\Http\Message\ResponseInterface;
 
@@ -16,8 +18,8 @@ class OfferRequest extends Request
         string $tradingPair,
         float  $amount,
         float  $rate,
-        string $offerType,
-        string $mode,
+        OfferType $offerType,
+        OrderMode $mode,
         bool $postOnly,
         bool $fillOrKill,
         bool $immediateOrCancel,
@@ -28,8 +30,8 @@ class OfferRequest extends Request
         return $this->client->post("trading/offer/$tradingPair", [
             'amount' => $amount,
             'rate' => $rate,
-            'offerType' => $offerType,
-            'mode' => $mode,
+            'offerType' => $offerType->value,
+            'mode' => $mode->value,
         ]);
     }
 
@@ -46,5 +48,22 @@ class OfferRequest extends Request
     ): ResponseInterface
     {
         return $this->client->delete("trading/offer/$tradingPair/$offerId/$offerType/$price");
+    }
+
+    public function getFeeAndMarketConfiguration(string $tradingPair): ResponseInterface
+    {
+        return $this->client->get("rest/trading/config/$tradingPair");
+    }
+
+    public function updateFeeAndMarketConfiguration(
+        string $tradingPair,
+        string $first,
+        string $second
+    ): ResponseInterface
+    {
+        return $this->client->post("rest/trading/config/$tradingPair", [
+            'first' => $first,
+            'second' => $second
+        ]);
     }
 }

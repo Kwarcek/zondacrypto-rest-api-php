@@ -13,11 +13,11 @@ class HistoryRequest extends Request
 
     public function getTransactions(): ResponseInterface
     {
-        return $this->client->get("trading/history/transactions");
+        return $this->client->get("rest/trading/history/transactions");
     }
 
     public function getOperations(): ResponseInterface
     {
-        return $this->client->get("balances/BITBAY/history");
+        return $this->client->get("rest/balances/BITBAY/history");
     }
 }
