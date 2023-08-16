@@ -1,14 +1,15 @@
 <?php
 
-namespace Kwarcek\ZondacryptoRestApiPhp\Private\Requests\Trading;
+declare(strict_types=1);
+
+namespace Kwarcek\ZondacryptoRestApiPhp\Private\Requests;
 
 use Kwarcek\ZondacryptoRestApiPhp\Private\Client;
 use Kwarcek\ZondacryptoRestApiPhp\Private\Enums\OfferType;
 use Kwarcek\ZondacryptoRestApiPhp\Private\Enums\OrderMode;
-use Kwarcek\ZondacryptoRestApiPhp\Private\Requests\Request;
 use Psr\Http\Message\ResponseInterface;
 
-class OfferRequest extends Request
+class TradingRequest extends Request
 {
     public function __construct(protected Client $client)
     {
@@ -20,11 +21,12 @@ class OfferRequest extends Request
         float  $rate,
         OfferType $offerType,
         OrderMode $mode,
-        bool $postOnly,
-        bool $fillOrKill,
-        bool $immediateOrCancel,
-        string $firstBalanceId,
-        string $secondBalanceId,
+        float $price = null,
+        bool $postOnly = false,
+        bool $fillOrKill = false,
+        bool $immediateOrCancel = false,
+        string $firstBalanceId = null,
+        string $secondBalanceId = null,
     ): ResponseInterface
     {
         return $this->client->post("trading/offer/$tradingPair", [
@@ -32,6 +34,12 @@ class OfferRequest extends Request
             'rate' => $rate,
             'offerType' => $offerType->value,
             'mode' => $mode->value,
+            'postOnly' => $postOnly,
+            'fillOrKill' => $fillOrKill,
+            'price' => $price,
+            'immediateOrCancel' => $immediateOrCancel,
+            'firstBalanceId' => $firstBalanceId,
+            'secondBalanceId' => $secondBalanceId,
         ]);
     }
 
@@ -43,11 +51,11 @@ class OfferRequest extends Request
     public function delete(
         string $tradingPair,
         string $offerId,
-        string $offerType,
+        OfferType $offerType,
         float $price,
     ): ResponseInterface
     {
-        return $this->client->delete("trading/offer/$tradingPair/$offerId/$offerType/$price");
+        return $this->client->delete("trading/offer/$tradingPair/$offerId/$offerType->value/$price");
     }
 
     public function getFeeAndMarketConfiguration(string $tradingPair): ResponseInterface
@@ -57,13 +65,13 @@ class OfferRequest extends Request
 
     public function updateFeeAndMarketConfiguration(
         string $tradingPair,
-        string $first,
-        string $second
+        string $firstCurrencyWalletUuid,
+        string $secondCurrencyWalletUuid
     ): ResponseInterface
     {
         return $this->client->post("rest/trading/config/$tradingPair", [
-            'first' => $first,
-            'second' => $second
+            'first' => $firstCurrencyWalletUuid,
+            'second' => $secondCurrencyWalletUuid
         ]);
     }
 }

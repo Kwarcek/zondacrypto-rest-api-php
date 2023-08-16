@@ -5,6 +5,7 @@ namespace Kwarcek\ZondacryptoRestApiPhp\Public\Requests;
 use Kwarcek\ZondacryptoRestApiPhp\Public\Client;
 use Kwarcek\ZondacryptoRestApiPhp\Public\Enums\Resolution;
 use Kwarcek\ZondacryptoRestApiPhp\Public\Exceptions\ClientException;
+use Kwarcek\ZondacryptoRestApiPhp\Public\Helpers\Response;
 
 class TradingRequest extends Request
 {
@@ -13,22 +14,22 @@ class TradingRequest extends Request
     }
 
     /**
-     * @return array
+     * @return array{status: string, items: array}
      * @throws ClientException
      */
     public function getTicker(): array
     {
-        return $this->parseResponseToArray($this->client->get("rest/trading/ticker"));
+        return Response::toArray($this->client->get("rest/trading/ticker"));
     }
 
     /**
      * @param string $tradingPair
-     * @return array
+     * @return array{status: string, ticker: array}
      * @throws ClientException
      */
     public function getPairTicker(string $tradingPair): array
     {
-        return $this->parseResponseToArray($this->client->get("rest/trading/ticker/$tradingPair"));
+        return Response::toArray($this->client->get("rest/trading/ticker/$tradingPair"));
     }
 
     /**
@@ -37,7 +38,7 @@ class TradingRequest extends Request
      */
     public function getStats(): array
     {
-        return $this->parseResponseToArray($this->client->get("rest/trading/stats"));
+        return Response::toArray($this->client->get("rest/trading/stats"));
     }
 
     /**
@@ -47,7 +48,7 @@ class TradingRequest extends Request
      */
     public function getPairStats(string $tradingPair): array
     {
-        return $this->parseResponseToArray($this->client->get("rest/trading/stats/$tradingPair"));
+        return Response::toArray($this->client->get("rest/trading/stats/$tradingPair"));
     }
 
     /**
@@ -57,7 +58,7 @@ class TradingRequest extends Request
      */
     public function getOrderbook(string $tradingPair): array
     {
-        return $this->parseResponseToArray($this->client->get("rest/trading/orderbook/$tradingPair"));
+        return Response::toArray($this->client->get("rest/trading/orderbook/$tradingPair"));
     }
 
     /**
@@ -68,7 +69,7 @@ class TradingRequest extends Request
      */
     public function getOrderbookLimited(string $tradingPair, int $limit = 10): array
     {
-        return $this->parseResponseToArray($this->client->get("rest/trading/orderbook-limited/$tradingPair/$limit"));
+        return Response::toArray($this->client->get("rest/trading/orderbook-limited/$tradingPair/$limit"));
     }
 
     /**
@@ -86,7 +87,7 @@ class TradingRequest extends Request
         int    $fromTime = null
     ): array
     {
-        return $this->parseResponseToArray(
+        return Response::toArray(
             $this->client->get("rest/trading/transactions/$tradingPair?limit=$limit&sort=$sort&fromTime=$fromTime")
         );
     }
@@ -106,7 +107,7 @@ class TradingRequest extends Request
         int        $toTimestamp
     ): array
     {
-        return $this->parseResponseToArray(
+        return Response::toArray(
             $this->client->get("rest/trading/candle/history/$tradingPair/$resolution->value?from=$fromTimestamp&to=$toTimestamp")
         );
     }

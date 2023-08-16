@@ -5,7 +5,6 @@ namespace Kwarcek\ZondacryptoRestApiPhp\Tests\Unit\Public\Requests;
 use Kwarcek\ZondacryptoRestApiPhp\Public\Enums\Resolution;
 use Kwarcek\ZondacryptoRestApiPhp\Public\Requests\TradingRequest;
 use Kwarcek\ZondacryptoRestApiPhp\Tests\Unit\Public\TestCase;
-use Psr\Http\Message\ResponseInterface;
 
 class TradingRequestTest extends TestCase
 {
@@ -23,10 +22,8 @@ class TradingRequestTest extends TestCase
         $response = $this->tradingRequest->getTicker();
 
         $this->assertIsArray($response);
-        $this->assertArrayHasKey('code', $response);
-        $this->assertArrayHasKey('data', $response);
-        $this->assertArrayHasKey('items', $response['data']);
-        $this->assertIsArray($response['data']['items']);
+        $this->assertArrayHasKey('items', $response);
+        $this->assertIsArray($response['items']);
     }
 
     public function test_trading_request_get_pair_ticker()
@@ -34,10 +31,8 @@ class TradingRequestTest extends TestCase
         $response = $this->tradingRequest->getPairTicker('BTC-PLN');
 
         $this->assertIsArray($response);
-        $this->assertArrayHasKey('code', $response);
-        $this->assertArrayHasKey('data', $response);
-        $this->assertArrayHasKey('ticker', $response['data']);
-        $this->assertIsArray($response['data']['ticker']);
+        $this->assertArrayHasKey('ticker', $response);
+        $this->assertIsArray($response['ticker']);
     }
 
     public function test_trading_request_get_stats()
@@ -45,10 +40,8 @@ class TradingRequestTest extends TestCase
         $response = $this->tradingRequest->getStats();
 
         $this->assertIsArray($response);
-        $this->assertArrayHasKey('code', $response);
-        $this->assertArrayHasKey('data', $response);
-        $this->assertArrayHasKey('items', $response['data']);
-        $this->assertIsArray($response['data']['items']);
+        $this->assertArrayHasKey('items', $response);
+        $this->assertIsArray($response['items']);
     }
 
     public function test_trading_request_get_pair_stats()
@@ -56,10 +49,8 @@ class TradingRequestTest extends TestCase
         $response = $this->tradingRequest->getPairStats('BTC-PLN');
 
         $this->assertIsArray($response);
-        $this->assertArrayHasKey('code', $response);
-        $this->assertArrayHasKey('data', $response);
-        $this->assertArrayHasKey('stats', $response['data']);
-        $this->assertIsArray($response['data']['stats']);
+        $this->assertArrayHasKey('stats', $response);
+        $this->assertIsArray($response['stats']);
     }
 
     public function test_trading_request_get_orderbook()
@@ -67,12 +58,10 @@ class TradingRequestTest extends TestCase
         $response = $this->tradingRequest->getOrderbook('BTC-PLN');
 
         $this->assertIsArray($response);
-        $this->assertArrayHasKey('code', $response);
-        $this->assertArrayHasKey('data', $response);
-        $this->assertArrayHasKey('sell', $response['data']);
-        $this->assertIsArray($response['data']['sell']);
-        $this->assertArrayHasKey('buy', $response['data']);
-        $this->assertIsArray($response['data']['buy']);
+        $this->assertArrayHasKey('sell', $response);
+        $this->assertIsArray($response['sell']);
+        $this->assertArrayHasKey('buy', $response);
+        $this->assertIsArray($response['buy']);
     }
 
     public function test_trading_request_get_orderbook_limited()
@@ -80,14 +69,12 @@ class TradingRequestTest extends TestCase
         $response = $this->tradingRequest->getOrderbookLimited('BTC-PLN', 50);
 
         $this->assertIsArray($response);
-        $this->assertArrayHasKey('code', $response);
-        $this->assertArrayHasKey('data', $response);
-        $this->assertArrayHasKey('sell', $response['data']);
-        $this->assertIsArray($response['data']['sell']);
-        $this->assertCount(50, $response['data']['sell']);
-        $this->assertArrayHasKey('buy', $response['data']);
-        $this->assertIsArray($response['data']['buy']);
-        $this->assertCount(50, $response['data']['buy']);
+        $this->assertArrayHasKey('sell', $response);
+        $this->assertIsArray($response['sell']);
+        $this->assertCount(50, $response['sell']);
+        $this->assertArrayHasKey('buy', $response);
+        $this->assertIsArray($response['buy']);
+        $this->assertCount(50, $response['buy']);
     }
 
     public function test_trading_request_get_last_transactions()
@@ -95,12 +82,10 @@ class TradingRequestTest extends TestCase
         $response = $this->tradingRequest->getLastTransaction('BTC-PLN', 50);
 
         $this->assertIsArray($response);
-        $this->assertArrayHasKey('code', $response);
-        $this->assertArrayHasKey('data', $response);
-        $this->assertArrayHasKey('status', $response['data']);
-        $this->assertArrayHasKey('items', $response['data']);
-        $this->assertIsArray($response['data']['items']);
-        $this->assertCount(50, $response['data']['items']);
+        $this->assertArrayHasKey('status', $response);
+        $this->assertArrayHasKey('items', $response);
+        $this->assertIsArray($response['items']);
+        $this->assertCount(50, $response['items']);
     }
 
     public function test_trading_request_get_candle_history()
@@ -113,10 +98,7 @@ class TradingRequestTest extends TestCase
         );
 
         $this->assertIsArray($response);
-        $this->assertArrayHasKey('code', $response);
-        $this->assertArrayHasKey('data', $response);
-        $this->assertArrayHasKey('items', $response['data']);
-        $this->assertIsArray($response['data']['items']);
-
+        $this->assertArrayHasKey('items', $response);
+        $this->assertIsArray($response['items']);
     }
 }
